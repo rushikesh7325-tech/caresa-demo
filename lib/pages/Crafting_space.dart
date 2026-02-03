@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'home_page_screen.dart'; // Ensure this import matches your file name
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
@@ -9,6 +11,7 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
   int _currentStage = 0;
+  Timer? _timer;
 
   final List<Map<String, String>> _loadingStages = [
     {
@@ -25,73 +28,104 @@ class _LoadingPageState extends State<LoadingPage> {
     },
   ];
 
-  void _nextStage() {
-    if (_currentStage < _loadingStages.length - 1) {
-      setState(() {
-        _currentStage++;
-      });
-    }else {
-      // All stages complete - navigate to home screen
-      Navigator.pushReplacementNamed(context,'/homescreen');
-      
-           // Replace with your home screen widg
-     
+  @override
+  void initState() {
+    super.initState();
+    _startLoadingSequence();
   }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Always cancel timers to prevent memory leaks
+    super.dispose();
+  }
+
+  void _startLoadingSequence() {
+    // Changes stage every 2 seconds
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      if (_currentStage < _loadingStages.length - 1) {
+        setState(() {
+          _currentStage++;
+        });
+      } else {
+        _timer?.cancel();
+        _navigateToHome();
+      }
+    });
+  }
+
+  void _navigateToHome() {
+    // Using a Fade Transition for a "Zen" feel
+    Navigator.of(context).pushAndRemoveUntil(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        transitionDuration: const Duration(milliseconds: 800),
+      ),
+      (route) => false,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque, 
-        onTap: _nextStage,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              Text(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Using AnimatedSwitcher to smoothly swap text
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: Text(
                 _loadingStages[_currentStage]['title']!,
+                key: ValueKey(_currentStage),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
                 ),
               ),
+            ),
 
-              const SizedBox(height: 24),
+            const SizedBox(height: 32),
 
-    
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(3, (index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 6),
-                    width: 25,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: index <= _currentStage
-                          ? Colors.black
-                          : Colors.grey.shade300,
-                    ),
-                  );
-                }),
-              ),
+            // Progress Indicators (Dots)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(3, (index) {
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 400),
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
+                  width: index == _currentStage ? 14 : 10, // Subtle size change
+                  height: index == _currentStage ? 14 : 10,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: index <= _currentStage
+                        ? Colors.black
+                        : Colors.grey.shade300,
+                  ),
+                );
+              }),
+            ),
 
-              const SizedBox(height: 16),
+            const SizedBox(height: 24),
 
-              Text(
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: Text(
                 _loadingStages[_currentStage]['subtitle']!,
+                key: ValueKey(_currentStage + 10), // Unique key for switcher
                 style: const TextStyle(
                   fontSize: 14,
                   color: Colors.grey,
                 ),
                 textAlign: TextAlign.center,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

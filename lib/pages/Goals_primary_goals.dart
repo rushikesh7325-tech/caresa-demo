@@ -6,67 +6,57 @@ class GoalTile extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
   final double spacing;
+
   const GoalTile({
     super.key,
     required this.icon,
     required this.text,
     this.isSelected = false,
     required this.onTap,
-    this.spacing=8,
+    this.spacing = 8,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10), // Balanced padding
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? Colors.black : const Color.fromARGB(255, 0, 0, 0),
+            color: isSelected ? Colors.black : Colors.grey.shade300,
             width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(30),
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: isSelected ? Colors.grey.shade50 : Colors.white,
         ),
         child: Row(
           children: [
-            Icon(
-              icon,
-              color: const Color.fromARGB(255, 0, 0, 0),
-              opticalSize: 28,
-              size: 33,
-            ),
-            const SizedBox(width: 8),
+            Icon(icon, color: Colors.black, size: 28),
+            const SizedBox(width: 10),
             Expanded(
               child: Text(
                 text,
                 style: TextStyle(
                   fontSize: 13,
-                  fontWeight: isSelected ? FontWeight.bold: FontWeight.normal,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(width: spacing,),
+            SizedBox(width: spacing),
             Container(
-              height: 25,
-              width: 25,
+              height: 22,
+              width: 22,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: isSelected ? Colors.black : const Color.fromARGB(255, 0, 0, 0),
-                  width: isSelected ? 1: 1,
+                  color: isSelected ? Colors.black : Colors.grey.shade400,
                 ),
-                color: isSelected ? Colors.black:Colors.transparent,
+                color: isSelected ? Colors.black : Colors.transparent,
               ),
               child: isSelected
-                  ? const Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      weight: 100,
-
-                    )
+                  ? const Icon(Icons.check, color: Colors.white, size: 14)
                   : null,
             ),
           ],

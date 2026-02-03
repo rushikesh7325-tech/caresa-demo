@@ -1,16 +1,18 @@
-import 'package:firstproduction_pro/pages/Primary_goals.dart';
-import 'package:firstproduction_pro/pages/crafting_space.dart';
-import 'package:firstproduction_pro/pages/home_page_screen.dart';
 import 'package:flutter/material.dart';
-import './pages/welcome_screen.dart';
-import './pages/signup_screen.dart';
-import './pages/set_password_screen.dart';
-import './pages/log_in_screen.dart';
-import './pages/reset_password_screen.dart';
-import './pages/company_verification_screen.dart';
-import './pages/university_verification_screen.dart';
-import './pages/uni_create_account_screen.dart';
-import './pages/create_company_account_screen.dart';
+
+// Screens
+import 'package:firstproduction_pro/pages/welcome_screen.dart';
+import 'package:firstproduction_pro/pages/signup_screen.dart';
+import 'package:firstproduction_pro/pages/set_password_screen.dart';
+import 'package:firstproduction_pro/pages/log_in_screen.dart';
+import 'package:firstproduction_pro/pages/reset_password_screen.dart';
+import 'package:firstproduction_pro/pages/company_verification_screen.dart';
+import 'package:firstproduction_pro/pages/university_verification_screen.dart';
+import 'package:firstproduction_pro/pages/uni_create_account_screen.dart';
+import 'package:firstproduction_pro/pages/create_company_account_screen.dart';
+import 'package:firstproduction_pro/pages/Primary_goals.dart'; // Ensure TopBar is here
+import 'package:firstproduction_pro/pages/home_page_screen.dart';    // Added for the landing page
+
 void main() {
   runApp(const MyApp());
 }
@@ -23,6 +25,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Growth App',
+      theme: ThemeData(
+        useMaterial3: true,
+        primaryColor: Colors.black,
+      ),
       // The first screen that loads
       initialRoute: '/',
 
@@ -36,9 +42,8 @@ class MyApp extends StatelessWidget {
         '/university': (context) => const UniversityVerification(),
         '/uniSignUp': (context) => const UniCreateAccountScreen(),
         '/companySignUp': (context) => const CompanyCreateAccountScreen(),
-        '/selectprimarygoals':(context)=>const TopBar(),
-        '/craftingspace':(context)=>const LoadingPage(),
-        '/homescreen':(context)=>const HomeScreen(),
+        '/primary': (context) => const TopBar(),
+        '/home': (context) => const HomeScreen(),
       },
     );
   }
