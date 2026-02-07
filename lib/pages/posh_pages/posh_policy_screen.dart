@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
-// Import your screens here
-import 'verbal_harassment_screen.dart';
- import 'physical_harassment_screen.dart';
+import 'package:firstproduction_pro/navigation/routes.dart';
 
-class PoshPolicyScreen extends StatelessWidget {
+class PoshPolicyScreen extends StatefulWidget {
   const PoshPolicyScreen({super.key});
+
+  @override
+  State<PoshPolicyScreen> createState() => _PoshPolicyScreenState();
+}
+
+class _PoshPolicyScreenState extends State<PoshPolicyScreen> {
+  final Set<String> _visitedItems = {};
+  // Updated to 5 to match the 5 items in your code list
+  final int _totalRequired = 5; 
+
+  void _markVisited(String routeName) {
+    setState(() {
+      _visitedItems.add(routeName);
+    });
+    Navigator.pushNamed(context, routeName);
+  }
+
+  bool get _isFlowComplete => _visitedItems.length >= _totalRequired;
 
   @override
   Widget build(BuildContext context) {
@@ -13,121 +29,137 @@ class PoshPolicyScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        // Using the standard thin back arrow from the image
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.black, size: 28),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text(
           'Posh Policy',
           style: TextStyle(
             color: Colors.black, 
-            fontWeight: FontWeight.w800, 
-            fontSize: 22,
+            fontWeight: FontWeight.w900, // Extra bold as per image
+            fontSize: 24,
           ),
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Illustration Container
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Center(
-                child: Container(
-                  height: 220,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE6F0FF),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: const Icon(Icons.security_sharp, size: 80, color: Color(0xFF4A90E2)),
-                ),
-              ),
-            ),
-            
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Learn about our guidelines and standards for a respectful and a safe workplace.',
-                    style: TextStyle(
-                      color: Color(0xFF7D7D7D),
-                      fontSize: 15,
-                      height: 1.4,
+                  // Illustration matches the height and centered style
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Image.asset(
+                      'assets/images/posh_home.png', // Replace with your actual asset path
+                      height: 220,
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  const SizedBox(height: 24),
-
-                  // 1. Verbal Harassment Clickable
-                  _buildPolicyItem(
-                    context, 
-                    'Verbal Harassment', 
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VerbalHarassmentScreen())),
-                  ),
-
-                  // 2. Physical Harassment Clickable
-                  _buildPolicyItem(
-                    context, 
-                    'Physical Harassment',
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const PhysicalHarassmentScreen())),
-                  ),
-
-                  // 3. Other items (Placeholder logic)
-                  _buildPolicyItem(context, 'Visual / Digital Harassment', onTap: () {}),
-                  _buildPolicyItem(context, 'Workplace Definition', onTap: () {}),
-                  _buildPolicyItem(context, 'Upload Evidence', onTap: () {}),
-
-                  const SizedBox(height: 32),
-
-                  SizedBox(
-                    width: double.infinity,
-                    height: 58,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD1D1D1),
-                        foregroundColor: Colors.white,
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Learn about our guidelines and standards for a respectful and a safe workplace.',
+                          style: TextStyle(
+                            color: Color(0xFF7D7D7D), 
+                            fontSize: 16, 
+                            height: 1.4,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                      child: const Text('Continue', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 24),
+
+                        _buildPolicyItem(context, 'Verbal Harassment', Routes.poshpolicy8),
+                        _buildPolicyItem(context, 'Physical Harassment', Routes.poshpolicy9),
+                        _buildPolicyItem(context, 'Visual / Digital Harassment', Routes.poshpolicy10),
+                        _buildPolicyItem(context, 'Workplace Definition', Routes.poshpolicy11),
+                        _buildPolicyItem(context, 'Upload Evidence', Routes.poshpolicy12),
+
+                        const SizedBox(height: 32),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 30),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          // Footer-style button padding
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 0, 24, 40),
+            child: _buildContinueButton(),
+          ),
+        ],
       ),
     );
   }
 
-  // Updated helper method with an onTap parameter
-  Widget _buildPolicyItem(BuildContext context, String title, {required VoidCallback onTap}) {
-    return Container(
+  Widget _buildPolicyItem(BuildContext context, String title, String routeName) {
+    bool isDone = _visitedItems.contains(routeName);
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 1.2),
-        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+        border: Border.all(
+          color: isDone ? Colors.green : Colors.black87, 
+          width: 1.5,
+        ),
+        borderRadius: BorderRadius.circular(18), // Match the rounded look
+        boxShadow: [
+          if (isDone)
+            BoxShadow(
+              color: Colors.green.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            )
+        ],
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         title: Text(
-          title,
+          title, 
           style: const TextStyle(
-            fontWeight: FontWeight.bold, 
+            fontWeight: FontWeight.w800, // Matching the bold list text
             fontSize: 18,
-            letterSpacing: -0.5,
+            color: Colors.black,
           ),
         ),
-        trailing: const Icon(Icons.chevron_right, color: Colors.black54),
-        onTap: onTap, // Now uses the callback passed into the function
+        trailing: Icon(
+          isDone ? Icons.check_circle : Icons.chevron_right, 
+          color: isDone ? Colors.green : Colors.black54,
+          size: 26,
+        ),
+        onTap: () => _markVisited(routeName),
+      ),
+    );
+  }
+
+  Widget _buildContinueButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 64, // Slightly taller for better touch target
+      child: ElevatedButton(
+        onPressed: _isFlowComplete ? () => Navigator.pushNamed(context, Routes.reportcompliant) : null,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: _isFlowComplete ? Colors.black : const Color(0xFFCCCCCC),
+          foregroundColor: Colors.white,
+          disabledBackgroundColor: const Color(0xFFCCCCCC),
+          elevation: _isFlowComplete ? 4 : 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        ),
+        child: const Text(
+          'Continue', 
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

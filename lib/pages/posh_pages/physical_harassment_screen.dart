@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firstproduction_pro/navigation/routes.dart';
 
 class PhysicalHarassmentScreen extends StatelessWidget {
   const PhysicalHarassmentScreen({super.key});
@@ -10,7 +11,6 @@ class PhysicalHarassmentScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        // Standard back arrow to match the UI navigation
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
           onPressed: () => Navigator.of(context).pop(),
@@ -19,7 +19,7 @@ class PhysicalHarassmentScreen extends StatelessWidget {
           'Physical Harassment',
           style: TextStyle(
             color: Colors.black,
-            fontWeight: FontWeight.w700, // Bold header
+            fontWeight: FontWeight.w700,
             fontSize: 22,
           ),
         ),
@@ -32,22 +32,22 @@ class PhysicalHarassmentScreen extends StatelessWidget {
             children: [
               const Spacer(flex: 1),
               
-              // Illustration from the provided image
+              // Central Illustration
               Center(
                 child: Image.asset(
-                  'assets/physical_harassment.png', // Ensure this asset is in your pubspec.yaml
+                  'assets/images/physical.png',
                   height: 260,
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) {
-                    // Fallback placeholder if image is missing
                     return Container(
-                      height: 200,
+                      height: 220,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFFFFBFA), // Subtle red tint
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: Colors.red.shade50),
                       ),
-                      child: const Icon(Icons.warning_amber_rounded, size: 80, color: Colors.redAccent),
+                      child: Icon(Icons.front_hand_rounded, size: 80, color: Colors.red.shade300),
                     );
                   },
                 ),
@@ -55,41 +55,38 @@ class PhysicalHarassmentScreen extends StatelessWidget {
               
               const SizedBox(height: 40),
               
-              // Descriptive Text from the source image
+              // Descriptive Text
               const Text(
                 'Physical harassment includes unwanted physical contact such as touching, pushing, hitting, blocking movement, or any action that violates personal space or safety.',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                  fontSize: 19,
-                  height: 1.3,
-                  color: Colors.black,
+                  fontSize: 18,
+                  height: 1.5,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               
               const Spacer(flex: 3),
               
-              // Continue Button
+              // Navigation Button
               Padding(
                 padding: const EdgeInsets.only(bottom: 30.0),
                 child: SizedBox(
                   width: double.infinity,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Navigate to the next section or logic
-                    },
+                    onPressed: () => Navigator.pushNamed(context, Routes.reportcompliant),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFCCCCCC), // Muted grey button
+                      backgroundColor: Colors.black87, // High contrast for action
                       foregroundColor: Colors.white,
-                      elevation: 4,
-                      shadowColor: Colors.black12,
+                      elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                     child: const Text(
-                      'Continue',
+                      'Continue to Report',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

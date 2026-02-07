@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../navigation/routes.dart'; // Import your routes constant
+import '../../navigation/routes.dart'; // Import your routes constant
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});

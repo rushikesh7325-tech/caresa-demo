@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'routes.dart';
 
 // Pages - Authentication & Verification
-import 'package:firstproduction_pro/pages/welcome_screen.dart';
+import 'package:firstproduction_pro/pages/main_screens/welcome_screen.dart';
 import 'package:firstproduction_pro/pages/auth/signup_screen.dart';
 import 'package:firstproduction_pro/pages/auth/set_password_screen.dart';
 import 'package:firstproduction_pro/pages/auth/log_in_screen.dart';
@@ -14,7 +14,7 @@ import 'package:firstproduction_pro/pages/auth/create_company_account_screen.dar
 
 // Pages - Core App & Onboarding
 import 'package:firstproduction_pro/pages/auth/Primary_goals.dart';
-import 'package:firstproduction_pro/pages/home_page_screen.dart';
+import 'package:firstproduction_pro/pages/main_screens/home_page_screen.dart';
 import 'package:firstproduction_pro/pages/auth/Crafting_space.dart';
 import 'package:firstproduction_pro/pages/question/personalization_loading_screen.dart';
 
@@ -36,6 +36,25 @@ import 'package:firstproduction_pro/pages/question/weekly_commitment.dart';
 
 // Pages - Results & Analysis
 import 'package:firstproduction_pro/pages/question/insights_review_screen.dart';
+//posh_pages
+import 'package:firstproduction_pro/pages/posh_pages/posh_1.dart';
+import 'package:firstproduction_pro/pages/posh_pages/complaint_registered_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/complaint_submitted_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/physical_harassment_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/posh_policy_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/verbal_harassment_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/physical_harassment_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/visual_digital_harassment_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/upload_evidence_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/workplace_definition_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/report_complaint_anonymous.dart';
+import 'package:firstproduction_pro/pages/posh_pages/compliant_tracking_screen.dart';
+import 'package:firstproduction_pro/pages/posh_pages/help_and_support1.dart';
+import 'package:firstproduction_pro/pages/posh_pages/help_and_support2.dart';
+import 'package:firstproduction_pro/pages/posh_pages/help_and_support3.dart';
+import 'package:firstproduction_pro/pages/posh_pages/help_support_screen4.dart';
+import 'package:firstproduction_pro/pages/posh_pages/help_and_support5.dart';
+import 'package:firstproduction_pro/pages/posh_pages/help_and_support6.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -85,50 +104,61 @@ class RouteGenerator {
         );
 
       case Routes.assessment:
-        return MaterialPageRoute(
-          builder: (_) => WellbeingAssessmentScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => WellbeingAssessmentScreen());
 
       case Routes.m2mood:
-        return MaterialPageRoute(builder: (_) =>  MoodSelectionScreen(questionid_2: 2,));
+        return MaterialPageRoute(
+          builder: (_) => MoodSelectionScreen(questionid_2: 2),
+        );
       case Routes.m3primary:
         return MaterialPageRoute(
-          builder: (_) => ReduceAnxietyFeelingsScreen(questionid_3: 3,),
+          builder: (_) => ReduceAnxietyFeelingsScreen(questionid_3: 3),
         );
       case Routes.m4copping:
         return MaterialPageRoute(
-          builder: (_) => OverwhelmedActionsScreen(questionid_4: 4,),
+          builder: (_) => OverwhelmedActionsScreen(questionid_4: 4),
         );
       case Routes.m5support:
-        return MaterialPageRoute(builder: (_) =>  SupportLevelScreen(questionid_5: 5,));
+        return MaterialPageRoute(
+          builder: (_) => SupportLevelScreen(questionid_5: 5),
+        );
 
       case Routes.m2sleep:
-        return MaterialPageRoute(builder: (_) =>SleepQualityScreen(questionid_6_1: 60,questionid_6_2:61,));
+        return MaterialPageRoute(
+          builder: (_) =>
+              SleepQualityScreen(questionid_6_1: 60, questionid_6_2: 61),
+        );
 
       case Routes.physicalActivity:
         return MaterialPageRoute(
-          builder: (_) => const PhysicalActivityScreen(questionid_7: 7,),
+          builder: (_) => const PhysicalActivityScreen(questionid_7: 7),
         );
 
       case Routes.stress:
-        return MaterialPageRoute(builder: (_) => StressSourcesScreen(questionid_9: 9,));
+        return MaterialPageRoute(
+          builder: (_) => StressSourcesScreen(questionid_9: 9),
+        );
 
       case Routes.stresslocation:
-        return MaterialPageRoute(builder: (_) => StressLocationScreen(questionid_10: 10,));
+        return MaterialPageRoute(
+          builder: (_) => StressLocationScreen(questionid_10: 10),
+        );
 
       // Ensure this matches the Step 12 Focus Area we built
       case Routes.stresschallenge:
         return MaterialPageRoute(
-          builder: (_) => StressChallengesScreen(questionid_11: 11,),
+          builder: (_) => StressChallengesScreen(questionid_11: 11),
         );
 
       case Routes.learningPreference:
         return MaterialPageRoute(
-          builder: (_) =>  LearningPreferenceScreen(questionid_12: 12,),
+          builder: (_) => LearningPreferenceScreen(questionid_12: 12),
         );
 
       case Routes.m4opensharing:
-        return MaterialPageRoute(builder: (_) =>M4OpenSharingScreen(questionid_14:14));
+        return MaterialPageRoute(
+          builder: (_) => M4OpenSharingScreen(questionid_14: 14),
+        );
 
       // THE FINAL SEQUENCE - Using a FadeTransition for a smoother "Processing" feel
       case Routes.m4processing:
@@ -140,15 +170,19 @@ class RouteGenerator {
         );
 
       case Routes.insights:
-        return MaterialPageRoute(builder: (_) => const M4InsightsScreen(questionid_15: 15,));
+        return MaterialPageRoute(
+          builder: (_) => const M4InsightsScreen(questionid_15: 15),
+        );
 
       case Routes.m2mindfulness:
         return MaterialPageRoute(
-          builder: (_) => const MindfulnessRoutineScreen(questionid_8: 8,),
+          builder: (_) => const MindfulnessRoutineScreen(questionid_8: 8),
         );
 
       case Routes.m4weekly:
-        return MaterialPageRoute(builder: (_) => const WeeklyCommitment(questionid_13: 13,));
+        return MaterialPageRoute(
+          builder: (_) => const WeeklyCommitment(questionid_13: 13),
+        );
 
       case Routes.home:
         return PageRouteBuilder(
@@ -158,6 +192,50 @@ class RouteGenerator {
           transitionDuration: const Duration(milliseconds: 500),
         );
 
+      case Routes.posh1:
+        return MaterialPageRoute(builder: (_) => const PoshAwarenessScreen());
+      case Routes.poshpolicy:
+        return MaterialPageRoute(builder: (_) => const PoshPolicyScreen());
+      case Routes.poshpolicy8:
+        return MaterialPageRoute(
+          builder: (_) => const VerbalHarassmentScreen(),
+        );
+      case Routes.poshpolicy10:
+        return MaterialPageRoute(
+          builder: (_) => const VisualDigitalHarassmentScreen(),
+        );
+      case Routes.poshpolicy11:
+        return MaterialPageRoute(
+          builder: (_) => const WorkplaceDefinitionScreen(),
+        );
+      case Routes.poshpolicy12:
+        return MaterialPageRoute(builder: (_) => const UploadEvidenceScreen());
+      case Routes.poshpolicy9:
+        return MaterialPageRoute(
+          builder: (_) => const PhysicalHarassmentScreen(),
+        );
+      case Routes.reportcompliant:
+        return MaterialPageRoute(builder: (_) => const ComplaintFormScreen());
+      case Routes.compliantsucess:
+        return MaterialPageRoute(
+          builder: (_) => const ComplaintRegisteredScreen(),
+        );
+
+      case Routes.poshcompliant5:
+        return MaterialPageRoute(builder: (_) => ComplaintTrackingScreen());
+
+      case Routes.help1:
+        return MaterialPageRoute(builder: (_) => const HelpHomeScreen());
+      case Routes.help2:
+        return MaterialPageRoute(builder: (_) => const ContactOfficerPage());
+      case Routes.help3:
+        return MaterialPageRoute(builder: (_) => const EmergencyPage());
+      case Routes.help4:
+        return MaterialPageRoute(builder: (_) => const HelpSupportScreen4());
+      case Routes.help5:
+        return MaterialPageRoute(builder: (_) => const HelpAndSupport5());
+      case Routes.help6:
+        return MaterialPageRoute(builder: (_) => const HelpAndSupport6());
       default:
         return _errorRoute();
     }

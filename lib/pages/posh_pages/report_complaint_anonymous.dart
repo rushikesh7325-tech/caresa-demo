@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firstproduction_pro/navigation/routes.dart';
 
 class ComplaintFormScreen extends StatefulWidget {
   const ComplaintFormScreen({Key? key}) : super(key: key);
@@ -50,6 +51,7 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
 
     // Handle submission
     _showSnackBar('Complaint submitted successfully');
+    Navigator.pushNamed(context, Routes.compliantsucess);
   }
 
   void _saveDraft() {

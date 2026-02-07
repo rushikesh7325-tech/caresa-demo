@@ -29,5 +29,23 @@ class Routes {
   static const String m4processing = '/m4processing';
   static const String m2mindfulness = '/m2mindfulness';
   static const String m4weekly = '/m4weekly';
-  
+  static const String posh1 = '/posh1';
+  static const String poshpolicy = '/poshpolicy';
+  static const String poshpolicy8 = '/poshpolicy8';
+  static const String poshpolicy9 = '/poshpolicy9';
+  static const String poshpolicy10 = '/poshpolicy10';
+  static const String poshpolicy11 = '/poshpolicy11';
+  static const String poshpolicy12 = '/poshpolicy12';
+  static const String reportcompliant = '/reportcompliant';
+  static const String compliantsucess = '/compliantsucess';
+  static const String compliantconfirmation = '/compliantconfirmation';
+  static const String poshcompliant5 = '/poshcomplian5';
+  static const String poshcompliant51 = '/poshcomplian51';
+  static const String poshcompliant52 = '/poshcomplian52';
+  static const String help1 = '/help1';
+  static const String help2 = '/help2';
+  static const String help3 = '/help3';
+  static const String help4 = '/help4';
+  static const String help5 = '/help5';
+  static const String help6 = '/help6';
 }
