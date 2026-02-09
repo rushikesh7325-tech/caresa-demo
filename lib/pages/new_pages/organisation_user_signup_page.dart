@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-
+import'../../navigation/routes.dart';
 import 'organisation_user_dashboard_page.dart';
 import 'login_page.dart';
 
@@ -52,11 +52,9 @@ class _OrganisationUserSignupPageState
       if (!mounted) return;
 
       if (response.statusCode == 201) {
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (_) => const OrganisationUserDashboardPage(),
-          ),
+          Routes.primary,
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -114,17 +112,23 @@ class _OrganisationUserSignupPageState
 
               const SizedBox(height: 32),
 
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: isLoading ? null : signupOrgUser,
-                  child: isLoading
-                      ? const CircularProgressIndicator(
-                          color: Colors.white,
-                        )
-                      : const Text("Create Account"),
-                ),
-              ),
+               SizedBox(
+  width: double.infinity,
+  child: ElevatedButton(
+    onPressed: isLoading ? null : signupOrgUser,
+    child: isLoading
+        ? const SizedBox(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: Colors.white,
+            ),
+          )
+        : const Text("Create Account"),
+  ),
+),
+
 
               const SizedBox(height: 20),
 

@@ -10,7 +10,8 @@ class NormalUserSignupPage extends StatefulWidget {
   const NormalUserSignupPage({super.key});
 
   @override
-  State<NormalUserSignupPage> createState() => _NormalUserSignupPageState();
+  State<NormalUserSignupPage> createState() =>
+      _NormalUserSignupPageState();
 }
 
 class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
@@ -20,6 +21,7 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
 
   bool isLoading = false;
 
+  // Base URL
   String get baseUrl =>
       kIsWeb ? "http://localhost:5000" : "http://10.0.2.2:5000";
 
@@ -42,9 +44,12 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
       if (!mounted) return;
 
       if (response.statusCode == 201) {
+        // Navigate to dashboard after successful signup
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const NormalUserDashboardPage()),
+          MaterialPageRoute(
+            builder: (_) => const NormalUserDashboardPage(),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -53,9 +58,9 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Server error")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Server error")),
+      );
     }
 
     if (mounted) {
@@ -84,7 +89,10 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
 
               const Text(
                 "Create Your Account",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
 
               const SizedBox(height: 30),
@@ -99,20 +107,23 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
                   children: [
                     TextField(
                       controller: nameController,
-                      decoration: const InputDecoration(labelText: "Full Name"),
+                      decoration:
+                          const InputDecoration(labelText: "Full Name"),
                     ),
                     const SizedBox(height: 16),
 
                     TextField(
                       controller: emailController,
-                      decoration: const InputDecoration(labelText: "Email"),
+                      decoration:
+                          const InputDecoration(labelText: "Email"),
                     ),
                     const SizedBox(height: 16),
 
                     TextField(
                       controller: passwordController,
                       obscureText: true,
-                      decoration: const InputDecoration(labelText: "Password"),
+                      decoration:
+                          const InputDecoration(labelText: "Password"),
                     ),
 
                     const SizedBox(height: 24),
@@ -120,20 +131,15 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        // Wrap the navigation in a function block
-                        onPressed: isLoading
-                            ? null
-                            : () {
-                                Navigator.pushNamed(context, Routes.primary);
-                              },
+                        onPressed:
+                            isLoading ? null : signupNormalUser,
                         child: isLoading
                             ? const SizedBox(
                                 height: 20,
                                 width: 20,
                                 child: CircularProgressIndicator(
                                   color: Colors.white,
-                                  strokeWidth:
-                                      2, // Thinner line looks better inside a button
+                                  strokeWidth: 2,
                                 ),
                               )
                             : const Text("Create Account"),
@@ -145,13 +151,14 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
 
               const SizedBox(height: 20),
 
-              // 🔹 LOGIN BUTTON
+              // Login button
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const NormalUserLoginPage(),
+                      builder: (_) =>
+                          const NormalUserLoginPage(),
                     ),
                   );
                 },
