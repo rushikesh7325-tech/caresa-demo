@@ -193,6 +193,7 @@ class _NormalUserSignupPageState extends State<NormalUserSignupPage> {
               ),
               const SizedBox(height: 30),
 
+             
               SizedBox(
                 width: double.infinity,
                 height: 55,
